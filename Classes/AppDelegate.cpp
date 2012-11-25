@@ -1,23 +1,22 @@
-#include "cocos2d.h"
 #include "AppDelegate.h"
+
+#include "cocos2d.h"
 #include "SimpleAudioEngine.h"
-#include "script_support/CCScriptSupport.h"
-#include "CCLuaEngine.h"
+#include "ScriptingCore.h"
+#include "generated/cocos2dx.hpp"
+#include "cocos2d_specifics.hpp"
+#include "js_bindings_chipmunk_manual.hpp"
 
 USING_NS_CC;
 using namespace CocosDenshion;
 
 AppDelegate::AppDelegate()
 {
-    // fixed me
-    //_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF|_CRTDBG_LEAK_CHECK_DF);
 }
 
 AppDelegate::~AppDelegate()
 {
-    // end simple audio engine here, or it may crashed on win32
-    SimpleAudioEngine::sharedEngine()->end();
-    //CCScriptEngineManager::purgeSharedManager();
+    CCScriptEngineManager::sharedManager()->purgeSharedManager();
 }
 
 bool AppDelegate::applicationDidFinishLaunching()
@@ -26,31 +25,45 @@ bool AppDelegate::applicationDidFinishLaunching()
     CCDirector *pDirector = CCDirector::sharedDirector();
     pDirector->setOpenGLView(CCEGLView::sharedOpenGLView());
     
-    CCEGLView::sharedOpenGLView()->setDesignResolutionSize(480, 320, kResolutionNoBorder);
-
     // turn on display FPS
     pDirector->setDisplayStats(true);
-
+    
     // set FPS. the default value is 1.0/60 if you don't call this
     pDirector->setAnimationInterval(1.0 / 60);
-
-    // register lua engine
-    CCLuaEngine* pEngine = CCLuaEngine::defaultEngine();
+    
+    ScriptingCore* sc = ScriptingCore::getInstance();
+    sc->addRegisterCallback(register_all_cocos2dx);
+    sc->addRegisterCallback(register_cocos2dx_js_extensions);
+    sc->addRegisterCallback(register_chipmunk_manual);
+    sc->addRegisterCallback(register_CCPhysicsSprite);
+    
+    sc->start();
+    
+    CCScriptEngineProtocol *pEngine = ScriptingCore::getInstance();
     CCScriptEngineManager::sharedManager()->setScriptEngine(pEngine);
-
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-    CCString* pstrFileContent = CCString::createWithContentsOfFile("hello.lua");
-    if (pstrFileContent)
-    {
-        pEngine->executeString(pstrFileContent->getCString());
-    }
-#else
-    std::string path = CCFileUtils::sharedFileUtils()->fullPathFromRelativePath("hello.lua");
-    pEngine->addSearchPath(path.substr(0, path.find_last_of("/")).c_str());
-    pEngine->executeScriptFile(path.c_str());
-#endif 
-
+    ScriptingCore::getInstance()->runScript("tests-boot-jsb.js");
+       
     return true;
+}
+
+void handle_signal(int signal) {
+    static int internal_state = 0;
+    ScriptingCore* sc = ScriptingCore::getInstance();
+    // should start everything back
+    CCDirector* director = CCDirector::sharedDirector();
+    if (director->getRunningScene()) {
+        director->popToRootScene();
+    } else {
+        CCPoolManager::sharedPoolManager()->finalize();
+        if (internal_state == 0) {
+            //sc->dumpRoot(NULL, 0, NULL);
+            sc->start();
+            internal_state = 1;
+        } else {
+            sc->runScript("hello.js");
+            internal_state = 0;
+        }
+    }
 }
 
 // This function will be called when the app is inactive. When comes a phone call,it's be invoked too
@@ -58,6 +71,7 @@ void AppDelegate::applicationDidEnterBackground()
 {
     CCDirector::sharedDirector()->stopAnimation();
     SimpleAudioEngine::sharedEngine()->pauseBackgroundMusic();
+    SimpleAudioEngine::sharedEngine()->pauseAllEffects();
 }
 
 // this function will be called when the app is active again
@@ -65,4 +79,5 @@ void AppDelegate::applicationWillEnterForeground()
 {
     CCDirector::sharedDirector()->startAnimation();
     SimpleAudioEngine::sharedEngine()->resumeBackgroundMusic();
+    SimpleAudioEngine::sharedEngine()->resumeAllEffects();
 }
