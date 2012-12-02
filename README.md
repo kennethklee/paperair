@@ -1,4 +1,0 @@
-paperair
-========
-
-Paper airplane game
