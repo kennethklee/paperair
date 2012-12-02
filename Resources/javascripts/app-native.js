@@ -26,10 +26,12 @@
 // boot code needed for cocos2d + JS bindings.
 // Not needed by cocos2d-html5
 
-require("script/helpers/jsb_constants.js");
+require('javascripts/helpers/jsb_constants_gl.js');
+require("javascripts/helpers/jsb_constants.js");
 
 var appFiles = [
-	'script/resources.js',
+	'javascripts/resources.js',
+	'javascripts/scenes/main.js',
 ];
 
 cc.dumpConfig();
@@ -45,8 +47,8 @@ director.setDisplayStats(false);	// Don't display stats
 director.setAnimationInterval(1.0 / 30);
 
 // create a scene. it's an autorelease object
-var mainScene = main.scene();
+var mainMenu = MainMenu.scene();
 
 // run
-director.runWithScene(mainScene);
+director.runWithScene(mainMenu);
 

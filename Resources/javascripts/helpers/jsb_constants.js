@@ -1,4 +1,3 @@
-require('js/helper/jsb_constants_gl.js');
 // cocos2d Helper
 
 cc.c3 = cc.c3 || function (r, g, b) {
