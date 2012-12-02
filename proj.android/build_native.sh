@@ -1,4 +1,4 @@
-APPNAME="MoonWarriors"
+APPNAME="PaperAir"
 
 # options
 
