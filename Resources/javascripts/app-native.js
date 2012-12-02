@@ -35,14 +35,14 @@ var appFiles = [
 cc.dumpConfig();
 
 for( var i=0; i < appFiles.length; i++) {
-    require( appFiles[i] );
+    require(appFiles[i]);
 }
 
 var director = cc.Director.getInstance();
-director.setDisplayStats(true);
+director.setDisplayStats(false);	// Don't display stats
 
 // set FPS. the default value is 1.0/60 if you don't call this
-director.setAnimationInterval(1.0 / 60);
+director.setAnimationInterval(1.0 / 30);
 
 // create a scene. it's an autorelease object
 var mainScene = main.scene();

@@ -65,7 +65,7 @@
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>.;..\Classes;$(SolutionDir)scripting\javascript\spidermonkey-win32\include;$(SolutionDir)external\chipmunk\include\chipmunk;$(SolutionDir)scripting\javascript\bindings;$(SolutionDir)extensions;$(SolutionDir)cocos2dx;$(SolutionDir)cocos2dx\include;$(SolutionDir)cocos2dx\kazmath\include;$(SolutionDir)cocos2dx\platform\win32;$(SolutionDir)cocos2dx\platform\third_party\win32;$(SolutionDir)cocos2dx\platform\third_party\win32\OGLES;$(SolutionDir)CocosDenshion\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;..\Classes;$(COCOS2DX_PATH)\scripting\javascript\spidermonkey-win32\include;$(COCOS2DX_PATH)\external\chipmunk\include\chipmunk;$(COCOS2DX_PATH)\scripting\javascript\bindings;$(COCOS2DX_PATH)\extensions;$(COCOS2DX_PATH)\cocos2dx;$(COCOS2DX_PATH)\cocos2dx\include;$(COCOS2DX_PATH)\cocos2dx\kazmath\include;$(COCOS2DX_PATH)\cocos2dx\platform\win32;$(COCOS2DX_PATH)\cocos2dx\platform\third_party\win32;$(COCOS2DX_PATH)\cocos2dx\platform\third_party\win32\OGLES;$(COCOS2DX_PATH)\CocosDenshion\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_WINDOWS;STRICT;_DEBUG;XP_WIN;JS_HAVE___INTN;JS_INTPTR_TYPE=int;COCOS2D_DEBUG=1;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -83,11 +83,11 @@
     </ResourceCompile>
     <PreLinkEvent>
       <Command>if not exist "$(OutDir)" mkdir "$(OutDir)"
-xcopy /Y /Q "$(SolutionDir)scripting\javascript\spidermonkey-win32\lib\*.*" "$(OutDir)"
+xcopy /Y /Q "%COCOS2DX_PATH%\scripting\javascript\spidermonkey-win32\lib\*.*" "$(OutDir)"
 </Command>
     </PreLinkEvent>
     <Link>
-      <AdditionalDependencies>libcocos2d.lib;libExtensions.lib;opengl32.lib;glew32.lib;libCocosDenshion.lib;mozjs.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libcocos2d.lib;opengl32.lib;glew32.lib;libCocosDenshion.lib;mozjs.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(OutDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
@@ -127,7 +127,7 @@ xcopy /Y /Q "$(SolutionDir)scripting\javascript\spidermonkey-win32\lib\*.*" "$(O
     </ResourceCompile>
     <PreLinkEvent>
       <Command>if not exist "$(OutDir)" mkdir "$(OutDir)"
-xcopy /Y /Q "$(SolutionDir)scripting\javascript\spidermonkey-win32\lib\*.*" "$(OutDir)"
+xcopy /Y /Q "%COCOS2DX_PATH%\scripting\javascript\spidermonkey-win32\lib\*.*" "$(OutDir)"
 </Command>
     </PreLinkEvent>
     <Link>
@@ -138,22 +138,22 @@ xcopy /Y /Q "$(SolutionDir)scripting\javascript\spidermonkey-win32\lib\*.*" "$(O
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\scripting\javascript\bindings\cocos2d_specifics.cpp" />
-    <ClCompile Include="..\..\..\scripting\javascript\bindings\cocosjs_manual_conversions.cpp" />
-    <ClCompile Include="..\..\..\scripting\javascript\bindings\generated\cocos2dx.cpp" />
-    <ClCompile Include="..\..\..\scripting\javascript\bindings\js_manual_conversions.cpp" />
-    <ClCompile Include="..\..\..\scripting\javascript\bindings\ScriptingCore.cpp" />
+    <ClCompile Include="$(COCOS2DX_PATH)\scripting\javascript\bindings\cocos2d_specifics.cpp" />
+    <ClCompile Include="$(COCOS2DX_PATH)\scripting\javascript\bindings\cocosjs_manual_conversions.cpp" />
+    <ClCompile Include="$(COCOS2DX_PATH)\scripting\javascript\bindings\generated\cocos2dx.cpp" />
+    <ClCompile Include="$(COCOS2DX_PATH)\scripting\javascript\bindings\js_manual_conversions.cpp" />
+    <ClCompile Include="$(COCOS2DX_PATH)\scripting\javascript\bindings\ScriptingCore.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\scripting\javascript\bindings\cocos2d_specifics.hpp" />
-    <ClInclude Include="..\..\..\scripting\javascript\bindings\cocosjs_manual_conversions.h" />
-    <ClInclude Include="..\..\..\scripting\javascript\bindings\generated\cocos2dx.hpp" />
-    <ClInclude Include="..\..\..\scripting\javascript\bindings\js_bindings_config.h" />
-    <ClInclude Include="..\..\..\scripting\javascript\bindings\js_manual_conversions.h" />
-    <ClInclude Include="..\..\..\scripting\javascript\bindings\ScriptingCore.h" />
-    <ClInclude Include="..\..\..\scripting\javascript\bindings\spidermonkey_specifics.h" />
+    <ClInclude Include="$(COCOS2DX_PATH)\scripting\javascript\bindings\cocos2d_specifics.hpp" />
+    <ClInclude Include="$(COCOS2DX_PATH)\scripting\javascript\bindings\cocosjs_manual_conversions.h" />
+    <ClInclude Include="$(COCOS2DX_PATH)\scripting\javascript\bindings\generated\cocos2dx.hpp" />
+    <ClInclude Include="$(COCOS2DX_PATH)\scripting\javascript\bindings\js_bindings_config.h" />
+    <ClInclude Include="$(COCOS2DX_PATH)\scripting\javascript\bindings\js_manual_conversions.h" />
+    <ClInclude Include="$(COCOS2DX_PATH)\scripting\javascript\bindings\ScriptingCore.h" />
+    <ClInclude Include="$(COCOS2DX_PATH)\scripting\javascript\bindings\spidermonkey_specifics.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="..\Classes\AppDelegate.h" />
