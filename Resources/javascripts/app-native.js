@@ -31,7 +31,7 @@ require("javascripts/helpers/jsb_constants.js");
 
 var appFiles = [
 	'javascripts/resources.js',
-	'javascripts/scenes/main.js',
+	'javascripts/scenes/main_menu.js',
 ];
 
 cc.dumpConfig();

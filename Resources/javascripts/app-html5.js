@@ -39,6 +39,7 @@ var MW = MW || {};
         engineDir: 'libraries/cocos2d/',
         appFiles:[
             'javascripts/resource.js',
+            'javascripts/scenes/main_menu.js',
         ]
     };
     window.addEventListener('DOMContentLoaded', function () {
